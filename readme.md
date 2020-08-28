@@ -10,10 +10,10 @@ Fellow colleague and student: Ciaran McGeady
 
 Code snippets and tutorials:
 
-[Jeff Heaton](https://github.com/jeffheaton/t81_558_deep_learning)
-[Erik Linder-Noren](https://github.com/eriklindernoren/Keras-GAN)
-[Drew Szurko](https://github.com/drewszurko/tensorflow-WGAN-GP)
-[Krish Kabra](https://github.com/krishk97/ECE-C247-EEG-GAN)
+* [Jeff Heaton](https://github.com/jeffheaton/t81_558_deep_learning)
+* [Erik Linder-Noren](https://github.com/eriklindernoren/Keras-GAN)
+* [Drew Szurko](https://github.com/drewszurko/tensorflow-WGAN-GP)
+* [Krish Kabra](https://github.com/krishk97/ECE-C247-EEG-GAN)
 
 
 
