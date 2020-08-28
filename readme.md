@@ -6,6 +6,7 @@ The load_and_process script needs to be loaded only once per subject to save tim
 ## Acknowledgements
 
 My Supervisors: Dr. Aleksandra Vuckovic and Professor Iain Thayne
+
 Fellow colleague and student: Ciaran McGeady
 
 Code snippets and tutorials:
