@@ -1,5 +1,6 @@
 # MSc Final Year Project: Creating Artificial/Synthetic Brain Signal 'Encephalographic' (EEG) Data Using Generative Adversarial Networks (GANs)
 ![](https://img.shields.io/badge/License-MIT-blue.svg) ![Generic badge](https://img.shields.io/badge/TensorFlow-2.3.0-Red.svg)
+
 ![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)
 
 Welcome to the repository of my master's year dissertation/project, in partial fulfilment of the requirements for my MSc Computer Systems Eng. Degree, fully titled: **Generating Synthetic EEG Data Using Deep Learning For Use In Calibrating Brain Computer Interface Systems.** If you're curious or want to know more about my project, then feel free to read along.  
@@ -40,9 +41,9 @@ A more novel method used, with the hopes of reducing calibration time, is augmen
 
 Another method of generating these artificial signals is using Deep Learning frameworks such as **Generative Adverserial Neural Networks (GANs).** Simply put, Generative Adverserial Networks which where proposed by Goodfellow et al. is similar to the idea of game theory where two players compete against each other with only one winner. The two players in this case are neural networks where one is known as the generator and the other as the discriminator. A generator’s job is to generate artificial/fake data from a latent noise variable/random noise vector, while the discriminator continually distinguishes between which samples are generated and which are real. Therefore, the end goal for the generator is to continuously keep on generating and improving upon the artificial samples such that they match the real dataset which the discriminator is trained on, causing the discriminator to label the artificial data from the generator as real. It is also the reason why such generative networks are termed as adversarial, due to the opposing nature of both networks. Both the generator’s and discriminator’s training procedure can be expressed mathematically using a minimax problem with the equation below:
 
- $$
-\underset{G}{min}\underset{D}{max} V(D,G) = E_{x-P_{data}(x)}[log D(x)] + E_{z-P_{x}(z)}[log(1-D(G(z)))]\,.
-$$
+
+$\underset{G}{min}\underset{D}{max} V(D,G) = E_{x-P_{data}(x)}[log D(x)] + E_{z-P_{x}(z)}[log(1-D(G(z)))]\,.$
+
 
 Where G, D, X and Z are generator parameters, discriminator parameters, real sample and generated sample (from noise). The function D(x) gives a probability as to whether the sample belongs to a real or generated data distribution (from P data or Pz -- the noise sampling distribution). Both the discriminator and generator parameters are trying to maximise the log (D(x)) function (discriminator labeling performance), whilst minimizing the log(1-D(G(z)). In a typical BCI setting, the framework for EEG generation is best shown in figure 3 below.
 
