@@ -29,7 +29,9 @@ Brain Computer Interface Systems or (BCIs) are computer based systems that allow
 
 During Signal Acquisition, the system records brain activity either from electrical or magnetic signals generated within such as Electroencephalography/Magnetoencephalography (EEG/MEG) respectively. Feature Extraction is a process where relevant signals relating a persons intent are picked up from the analysed and recorded signal during the previous component. Broadly speaking, there are two types of signals of interest that can be 'extracted': Evoked Potentials (EPs) and Event Related Synchronisation/Desynchronisation (ERS/ERD). EPs are signals with distinguishable peaks/amplitudes, generated in the brain after a person is subjected to an external stimulus such as a sound or moving object (referred to as Auditory Evoked Potentials/Visual Evoked Potentials), while ERS happens when certain neurons/neuronal populations exchange information/fire in sync. This is why ERS brings rise to what is known as 'Neural Oscillations' such as the Alpha, Beta and Mu frequency bands, with each band corresponding to a range of frequencies in which these neurons can fire. All of the features extracted from the signal of interest are stored in what's known as a feature vector. The next component which is Feature Translation/Pattern Recognition takes in the data from the feature vector and uses Machine Learning classification algorithms (such as Linear Discriminant Analysis or Support Vector Machines) to learn from and give an output to a device. For example, a visual EP could be used to control the movement of a character in a video game, or a P300 EP signal (an evoked potential characterised by a positive peak 300ms after simulus onset) can be used to select a letter in a spelling system. Finally, the device output component takes in the commands generated during feature translation/pattern recognition to operate the external device. The figure below shows the components in more detail. 
 
-[Figure 1]
+<p align="center">
+  <img src="https://github.com/basel-shehabi/EEG-Synthetic-Data-Using-GANs/blob/master/pics/fig1.jpg">
+</p>
 
 Thus, BCIs can be seen as a promising technology that allows patients who are locked-in/paralyzed, due to suffering from a stroke or other debilitating conditions, to communicate and interact with the outside world without using their muscles. Other forms of entertainment such as Virtual Realty (VR) games are slowly starting to adopt this technology however, there are multiple challenges that need to be surmounted before this technology is more widespread. Some of these challenges include technological, neurological and ethical. Technological challenges focus mainly on issues pertaining to signal acquisition/processing methods, cost, portability and setup time. Neurological challenges include the nonstationary nature of the brain or in other words, there exists inter and intrasubject variability in the acquired signals, where signals present in one subject might not be as strong or as profound in another. This intersubject variability is attributed due to anatomical diversity in terms of brain size/area between subjects, while intrasubject variability exists due to mood variation causing a weak or unusable signal for input. Ethical challenges on the other hand deal with problems of human ethics (mind reading) and socioeconomic factors. 
 
@@ -37,17 +39,23 @@ Ultimately, to use the BCI system, there exists a long training and calibration 
 
 A more novel method used, with the hopes of reducing calibration time, is augmenting or adding artificial data onto the original training dataset that is used calibrate the system. This can be done using signal segmentation/recombination, where an incoming user signal is copied and segmented into smaller time frames, then rejoined with other signals that have undergone similar a similar segmentation procedure, resulting in a 'fake' or artificial signal from previously existing signals. Figure two gives a brief example of how this is done.
 
-[Figure 2]
+<p align="center">
+  <img src="https://github.com/basel-shehabi/EEG-Synthetic-Data-Using-GANs/blob/master/pics/fig2.PNG">
+</p>
 
 Another method of generating these artificial signals is using Deep Learning frameworks such as **Generative Adverserial Neural Networks (GANs).** Simply put, Generative Adverserial Networks which where proposed by Goodfellow et al. is similar to the idea of game theory where two players compete against each other with only one winner. The two players in this case are neural networks where one is known as the generator and the other as the discriminator. A generator’s job is to generate artificial/fake data from a latent noise variable/random noise vector, while the discriminator continually distinguishes between which samples are generated and which are real. Therefore, the end goal for the generator is to continuously keep on generating and improving upon the artificial samples such that they match the real dataset which the discriminator is trained on, causing the discriminator to label the artificial data from the generator as real. It is also the reason why such generative networks are termed as adversarial, due to the opposing nature of both networks. Both the generator’s and discriminator’s training procedure can be expressed mathematically using a minimax problem with the equation below:
 
 
-$\underset{G}{min}\underset{D}{max} V(D,G) = E_{x-P_{data}(x)}[log D(x)] + E_{z-P_{x}(z)}[log(1-D(G(z)))]\,.$
+<p align="center">
+  <img src="https://github.com/basel-shehabi/EEG-Synthetic-Data-Using-GANs/blob/master/pics/equation.png">
+</p>
 
 
 Where G, D, X and Z are generator parameters, discriminator parameters, real sample and generated sample (from noise). The function D(x) gives a probability as to whether the sample belongs to a real or generated data distribution (from P data or Pz -- the noise sampling distribution). Both the discriminator and generator parameters are trying to maximise the log (D(x)) function (discriminator labeling performance), whilst minimizing the log(1-D(G(z)). In a typical BCI setting, the framework for EEG generation is best shown in figure 3 below.
 
-[Figure 3]
+<p align="center">
+  <img src="https://github.com/basel-shehabi/EEG-Synthetic-Data-Using-GANs/blob/master/pics/fig3.PNG">
+</p>
 
 Standard GANs without any modifications are prone to errors and instability, more specifically what is known as mode collapse. Mode collapse is defined as the discriminator only learning to recognize a few narrow modes of input distribution as real, causing the generator to produce a limited amount of differentiable outputs. One proposition to counteract model instability and mode collapse is using a Wasserstein GAN (WGAN) that was first introduced by Arjovsky et al. The end goal of WGANs is to minimise the difference between real data distribution and fake data distribution, preventing mode collapse, and has been successfully used to create noiseless EEG data. There are also other issues such as vanishing/exploding gradients that a WGAN can take care of using what is known as a gradient penalty. More wil be touched on this in the methodology section. Other researchers might use a pure Deep Convolutional GAN (DCGAN) in order to pick up on signal features using convolutional layers with different kernel sizes. Based on this, three kinds of GAN were implemented and investigated: *a standard unmodified GAN, a DCGAN and a WGAN.*
 
@@ -57,7 +65,9 @@ In this project, the focus was on what is known as a Endogenous BCI system -- BC
 
 As mentioned previously, the focus of this project was on creating synthetic/artificial data for use in MI-based BCI systems. 13 Subjects were each individually invited to sit in front of a computer screen and perform the imagery task in their head over several trials. One trial had consisted of roughly 5.5-6.5 seconds and began with an audible beep heard at t = 0 seconds, followed by an arrow on the screen pointing towards the left, right or up, indicating which arm to imagine moving (up indicates both arms or bimanual). The arrow had stayed on the screen for a period of four seconds with a blank screen shown for a random duration of 1.5-2.5 seconds. The trial can be demonstrated in figure 4. 
 
-[Figure 4]
+<p align="center">
+  <img src="https://github.com/basel-shehabi/EEG-Synthetic-Data-Using-GANs/blob/master/pics/fig4.PNG">
+</p>
 
 For each subject, 315 trials were collected, with 105 trials pertaining to each task (e.g. 105 trials for left arm movements). This was split into 7 runs of 45 trials in order to minimise subject fatigue. Data was collected from 64 EEG channels and sampled at 256Hz. 
 
@@ -69,7 +79,17 @@ Once the processing part was done, scikit learn's `train_test_split()` method ha
 
 The overall implementation can be found in the `Load_and_Process.py` script. The script implements the LoadData class with three methods, one to return the filtered, normalised and transformed data using `get_normalized_cwt_data()` which accepts the channel numbers based off of the class constructor and defaults to channels 7, 9 and 11 if nothing was passed. The two other class methods `get_epoch_data()` and `get_crop_filtered_data_from_fif()` return the overall trial data for one subject that is uncropped, non-split and unfiltered having only gone pre-processing from MNE, while the latter only splits, crops and filters without undergoing CWT. This is done for exploratory purposes where initially the standard GAN was only fed data returned from `get_epoch_data()` which was in the form of Trials x Time Samples x Channels. Figure 5 shows data figures in the form of Time Series, Image Plot and Spectrogram from select trials and channels, and can be obtained using the same load script.
 
-[Figure 5] 
+<p align="center">
+  <img src="https://github.com/basel-shehabi/EEG-Synthetic-Data-Using-GANs/blob/master/pics/fig5.PNG">
+</p>
+
+<p align="center">
+  <img src="https://github.com/basel-shehabi/EEG-Synthetic-Data-Using-GANs/blob/master/pics/fig6.png">
+</p>
+
+<p align="center">
+  <img src="https://github.com/basel-shehabi/EEG-Synthetic-Data-Using-GANs/blob/master/pics/fig7.png">
+</p>
 
 ### Network Architecture and Parameters
 
